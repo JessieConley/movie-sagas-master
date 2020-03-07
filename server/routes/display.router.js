@@ -4,7 +4,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 // return all favorite images
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   console.log("in server /display/GET");
   const queryText = `SELECT * FROM movies ORDER BY title ASC`;
   pool
@@ -17,4 +17,6 @@ router.get("/", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+module.exports = router;
 
