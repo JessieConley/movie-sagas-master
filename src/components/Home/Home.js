@@ -13,13 +13,13 @@ class Home extends Component {
   };
 
   render() {
-    // Display movies on the dom
+    // Display movies on the dom by mapping through  movies reducer from Index
     return (
       <div className="home">
         <ul>
           {this.props.reduxState.movies.map(flick => (
-            <li key={flick.id}>{flick.title}
-              <img src={flick.poster} alt={flick.title}></img>
+            <li key={flick.id}>
+              <img src={flick.poster} alt={flick.title}></img><br/> {flick.title}<br/> {flick.description}
             </li>
           ))}
         </ul>
