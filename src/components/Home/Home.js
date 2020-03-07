@@ -9,7 +9,20 @@ class Home extends Component {
   };
 
   getMovies = () => {
-    this.props.dispatch({ type: 'FETCH_MOVIES' });
+    this.props.dispatch({ type: "FETCH_MOVIES" });
+  };
+
+  onClick = (event, flick) => {
+    //console.log('in imageClick');
+    this.props.history.push({
+      pathname: "/details",
+      state: {
+        id: flick.id,
+        title: flick.title,
+        poster: flick.poster,
+        description: flick.description
+      }
+    });
   };
 
   render() {
@@ -19,12 +32,20 @@ class Home extends Component {
         <ul>
           {this.props.reduxState.movies.map(flick => (
             <li key={flick.id}>
-              <img src={flick.poster} alt={flick.title}></img><br/> {flick.title}<br/> {flick.description}
+              <img
+                src={flick.poster}
+                alt={flick.title}
+                onClick={event => this.onClick(event, flick)}
+              ></img>
+              <br />
+              {flick.title} <br />
+              {flick.description}
             </li>
           ))}
         </ul>
       </div>
-    );} 
+    );
+  }
 }
 
 const putReduxStateOnProps = reduxState => ({
