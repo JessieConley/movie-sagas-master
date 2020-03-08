@@ -4,14 +4,18 @@ import { connect } from "react-redux";
 
 
 class Home extends Component {
+  //Fire on page load (display all movies)
   componentDidMount = () => {
     this.getMovies();
   };
 
+  //Function to get all movies from SQL DB
   getMovies = () => {
     this.props.dispatch({ type: "FETCH_MOVIES" });
   };
 
+
+//Function to advance user to Details page on click
   onClick = (event, flick) => {
     //console.log('in imageClick');
     this.props.history.push({
@@ -26,7 +30,7 @@ class Home extends Component {
   };
 
   render() {
-    // Display movies on the dom by mapping through  movies reducer from Index
+    // Display movies on the dom by mapping through each movie item from redux store
     return (
       <div className="home">
       

@@ -4,23 +4,29 @@ import { connect } from "react-redux";
 class Edit extends Component {
     state={
         movieEdits: {
-            title: '',
-            description: ''
+            newTitle: '',
+            newDescription: '',
+            movieId: this.props.match.params.id
         }
     }
 
     backToHome = () =>{
+        //bring user back to home page
         this.props.history.push('/');
     }
 
     handleChangeFor=(propertyName, event) => {
-        console.log('handle change', this.state.movieEdits);
+        //update local state upon usert inputs
         this.setState ({
             movieEdits: {
-                ...this.state.movieEdits,
+                ...this.state,
                 [propertyName]:event.target.value
             }
         })
+    }
+
+    handleEditSave = () => {
+        this.props.dispatch({type: '', payload: this.state})
     }
 
     editMovie = (text, id) => {
@@ -44,7 +50,7 @@ class Edit extends Component {
         <br />
         <textarea rows="10" cols="75" onChange={(event) => this.handleChangeFor('description', event)}/>
         <br />
-        <button onClick={() => this.editMovie(this.state, this.props.location.state.id)}>Save</button>
+        <button onClick={() => this.editMovie(this.state, this.props.location.state.title, this.props.location.state.description)}>Save</button>
         <br />
         <button onClick={this.backToHome}>Cancel</button>
       </div>

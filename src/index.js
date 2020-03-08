@@ -14,9 +14,12 @@ import Axios from "axios";
 
 // Create the rootSaga generator function
 function* rootSaga() {
+    //Get movies to display
     yield takeEvery('FETCH_MOVIES', getMovies);
-    yield takeEvery('SET_GENRES', getGenresToDisplay);
-    yield takeEvery('CHANGE_FLICK', editMovies);
+    //Display movie genres
+    yield takeEvery('SET_GENRES', displayGenres);
+    //Edit a movie
+    yield takeEvery('CHANGE_MOVIE', updateMovie);
 
 }
 
@@ -27,22 +30,29 @@ function* getMovies() {
   yield put({ type: 'SET_MOVIES', payload: showMovie.data });
 }
 
-function* getGenresToDisplay() {
+function* displayGenres() {
   const genreList = yield Axios.get("/genre");
   console.log("this saga came from genre/GET bringing: ", genreList.data);
   yield put({ type: 'SET_GENRES', payload: genreList.data });
 }
 
-function* editMovies(edit) {
-  console.log("in saga PUT with: ", edit.payload.sendId);
+function* editMovie(action) {
   try {
-    yield Axios.put(`/display/${edit.payload.sendId}`, edit.payload);
-    yield put({ type: 'CHANGE_FLICK' });
+    const response = yield Axios.get(`/display/${action.payload}`);
+    yield put({ type: "CHANGE_MOVIE", payload: response.data });
   } catch (error) {
-    console.log(error);
+    console.log("error getting this change movie details", error);
   }
 }
 
+//Generator function POST request to server to update title and description in DB
+function* updateMovie(action) {
+  try {
+    yield Axios.post('/movies', action.payload);
+  } catch (error) {
+    console.log("error updating movie information");
+  }
+}
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 

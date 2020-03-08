@@ -5,9 +5,9 @@ const router = express.Router();
 
 
 
-router.put("/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   console.log("IN POST WITH:", req.body, req.params);
-  const queryText = `UPDATE favorites SET "category_id" = $1 WHERE id=$2;`;
+  const queryText = `UPDATE "movies" SET "title" = $1, "description" WHERE id=$3;`;
   const queryValues = Number(req.body.sendCat);
   pool
     .query(queryText, [queryValues, req.params.id])
