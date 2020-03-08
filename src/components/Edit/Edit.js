@@ -10,30 +10,6 @@ class Edit extends Component {
     }
   };
 
-  //   editThis = (text, id) => {
-  //     swal({
-  //       title: "Are you sure? Once edit is submitted it is forever!",
-  //       text: `NEW TITLE: ${text.movieEdits.title}. NEW DESCRIPTION: ${text.movieEdits.description}`,
-  //       icon: "warning",
-  //       buttons: true,
-  //       dangerMode: true
-  //     }).then(willEdit => {
-  //       if (willEdit) {
-  //         swal("And just like that you are now an editor!", {
-  //           icon: "success"
-  //         });
-  //         this.props.dispatch({
-  //           type: "EDIT_MOVIE",
-  //           payload: { sendId: id, change: text }
-  //         });
-  //         this.props.history.goBack();
-  //       } else {
-  //         swal("Keeping you safe, heading back to detail page!");
-  //         this.props.history.goBack();
-  //       }
-  //     });
-  //   };
-
   handleChangeForTitle = (movieTitle, event) => {
     this.setState({
       movieEdits: {
