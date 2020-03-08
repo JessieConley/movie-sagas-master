@@ -43,11 +43,11 @@ function* editMovie(edit) {
 }
 
 // //Display movie genres
-function* displayGenres(){
-    const genres = yield Axios.get('/edit');
-    console.log('show genres saga from index.js', genres.data);
-    yield put ({type: 'SET_GENRES', payload: genres.data})
-}
+// function* displayGenres(){
+//     const genres = yield Axios.get('/edit');
+//     console.log('show genres saga from index.js', genres.data);
+//     yield put ({type: 'SET_GENRES', payload: genres.data})
+// }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

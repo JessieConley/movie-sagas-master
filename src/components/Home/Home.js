@@ -26,7 +26,8 @@ class Home extends Component {
         id: flick.id,
         title: flick.title,
         poster: flick.poster,
-        description: flick.description
+        description: flick.description,
+        genre: flick.name
       }
     });
   };

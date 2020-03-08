@@ -1,44 +1,74 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import swal from "sweetalert";
+
 class Edit extends Component {
   state = {
     movieEdits: {
-      movieTitle: '',
-      movieDescription: ''
+      movieTitle: this.props.location.state.title,
+      movieDescription: this.props.location.state.description,
+      sendId: ""
     }
   };
-  editThis = (text, id) => {
-    swal({
-      title: "Are you sure? Once edit is submitted it is forever!",
-      text: `NEW TITLE: ${text.movieEdits.title}. NEW DESCRIPTION: ${text.movieEdits.description}`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true
-    }).then(willEdit => {
-      if (willEdit) {
-        swal("And just like that you are now an editor!", {
-          icon: "success"
-        });
-        this.props.dispatch({
-          type: "EDIT_MOVIE",
-          payload: { sendId: id, change: text }
-        });
-        this.props.history.goBack();
-      } else {
-        swal("Keeping you safe, heading back to detail page!");
-        this.props.history.goBack();
-      }
-    });
-  };
-  handleChangeFor = (propertyName, event) => {
+
+  //   editThis = (text, id) => {
+  //     swal({
+  //       title: "Are you sure? Once edit is submitted it is forever!",
+  //       text: `NEW TITLE: ${text.movieEdits.title}. NEW DESCRIPTION: ${text.movieEdits.description}`,
+  //       icon: "warning",
+  //       buttons: true,
+  //       dangerMode: true
+  //     }).then(willEdit => {
+  //       if (willEdit) {
+  //         swal("And just like that you are now an editor!", {
+  //           icon: "success"
+  //         });
+  //         this.props.dispatch({
+  //           type: "EDIT_MOVIE",
+  //           payload: { sendId: id, change: text }
+  //         });
+  //         this.props.history.goBack();
+  //       } else {
+  //         swal("Keeping you safe, heading back to detail page!");
+  //         this.props.history.goBack();
+  //       }
+  //     });
+  //   };
+
+  handleChangeForTitle = (movieTitle, event) => {
     this.setState({
       movieEdits: {
-        ...this.state.movieEdits,
-        [propertyName]: event.target.value
+        movieDescription: this.props.location.state.description,
+        sendId: this.props.location.state.id,
+        movieTitle: event.target.value
       }
     });
   };
+
+  handleChangeForDescription = (movieDescription, event) => {
+    this.setState({
+      movieEdits: {
+        movieDescription: event.target.value,
+        sendId: this.props.location.state.id,
+        movieTitle: this.props.location.state.title
+      }
+    });
+  };
+
+    saveOnChange = event => {
+      event.preventDefault();
+      this.props.dispatch({
+        type: "EDIT_MOVIE",
+        payload: this.state.movieEdits
+      });
+      this.setState({
+        movieEdits: {
+          movieDescription: "",
+          movieTitle: ""
+        }
+      });
+      this.props.history.push("/");
+    };
+
   back = () => {
     console.log("go back to details page from edit");
     this.props.history.push({
@@ -47,43 +77,34 @@ class Edit extends Component {
         id: this.props.location.state.id,
         title: this.props.location.state.title,
         poster: this.props.location.state.poster,
-        description: this.props.location.state.description
+        description: this.props.location.state.description,
+        genre: this.props.location.state.genre
       }
     });
   };
   render() {
     return (
-      <div className="edit">
-        <h1 className="site-title">EDIT PAGE</h1>
-        <button onClick={this.back}>Back to Details</button>
-        <h1 className="title">
-          Curent Title: {this.props.location.state.title}
-        </h1>
-        <div className="posterDisplay" key={this.props.location.state.id}>
-          <img className="poster" alt="poster" src={this.props.location.state.poster} />
-      </div>
-        <h3 className="title">Current Description:</h3>
-        <div className="descriptionEdit">
-          {this.props.location.state.description}
-      </div>
-        <textarea
-          placeholder={this.props.location.state.title}
-          onChange={event => this.handleChangeFor("title", event)}
-        />
-        <br />
-        <textarea
-          className="largeEdit"
-          placeholder={this.props.location.state.description}
-          onChange={event => this.handleChangeFor("description", event)}
-        />
-        <button
-          className="editButton"
-          onClick={() =>
-            this.editThis(this.state, this.props.location.state.id)
-          }
-        >
-          Submit Edit
-        </button>
+      <div className="Edit">
+        <p>Movie Details</p>
+        <h1>{this.props.location.state.title}</h1>
+        <p>{this.props.location.state.description}</p>
+        <form>
+          <textarea
+            rows="10"
+            cols="50"
+            placeholder="Update Description"
+           
+            onChange={event =>
+              this.handleChangeForDescription("description", event)
+            }
+          ></textarea>
+        </form>
+        <input
+          placeholder="Change Title"
+          onChange={event => this.handleChangeForTitle("title", event)}
+        ></input>
+        <button onClick={this.back}>Cancel</button>
+        <button onClick={this.saveOnChange}>Save</button>
       </div>
     );
   }

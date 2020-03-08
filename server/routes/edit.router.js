@@ -20,9 +20,9 @@ router.get('/', (req, res) => {
 router.put("/:id", (req, res) => {
 
   console.log(
-    "In router put with:",req.body.title, req.body.sendId, req.body.description
+    "in router put with:",req.body.title, req.body.sendId, req.body.description
   );
-  const queryText = `UPDATE movies SET "description" = '${req.body.description}', "title" = '${req.body.title}' WHERE id='${req.body.sendId}';`;
+  const queryText = `UPDATE "movies" SET "description" = '${req.body.description}', "title" = '${req.body.title}' WHERE id='${req.body.sendId}';`;
   pool.query(queryText)
     .then(() => {
       res.sendStatus(200);
