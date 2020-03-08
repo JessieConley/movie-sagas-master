@@ -5,43 +5,33 @@ import {connect} from 'react-redux';
 
 class Details extends Component {
  
-
   backToHome = () => {
     //Take user back to homepage on click
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
-  
-
-  // editMovie = flick => {
-  //   this.props.history.push({
-  //     pathname: "/edit",
-  //     state: {
-  //       id: flick.id,
-  //       title: flick.title,
-  //       poster: flick.poster,
-  //       description: flick.description
-  //     }
-  //   });
-  // };
+  editMovie = flick => {
+    this.props.history.push('/edit');
+  };
   render() {
     console.log("in details", this.props.location.state);
     return (
       <div>
         {this.props.reduxState.movies && (
           <div className="details">
-            <h1 className="site-title">Movie Detail</h1>
+            <h1 className="movieDetail">Movie Detail</h1>
             <h1>{this.props.location.state.title}</h1>
+            <div className="movieDisplay" key={this.props.location.state.id}>
             <img
-              alt={this.props.location.state.poster}
+              alt="Poster"
               src={this.props.location.state.poster}
             ></img>
+            </div>
             <p>{this.props.location.state.description}</p>
-
             <h3>Genres</h3>
        
-            {/* <ul>{this.props.reduxState.displayGenres.map((genre, i) => (
-            <li key={genre[i]}>{genre.name}</li>
+            {/* <ul>{this.props.reduxState.displayGenres.map((genre) => (
+            <li key={genre.id}>{genre.name}</li>
             ))}
             </ul> */}
 

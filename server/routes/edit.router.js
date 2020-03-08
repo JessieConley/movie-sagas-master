@@ -17,21 +17,18 @@ router.get('/', (req, res) => {
 });
 
 //update movie title and description upon edit
-router.put('/:id', (req, res) => {
-  console.log('in server /edit PUT', req.body, req.params);
-  const queryText = `UPDATE "movies" SET "title" =$1, "description" =$2 WHERE id=$3;`;
-  const queryValues = [
-    req.body.change.edits.title,
-    req.body.change.edits.description,
-    req.params.id
-  ];
-  pool
-    .query(queryText, queryValues)
+router.put("/:id", (req, res) => {
+
+  console.log(
+    "In router put with:",req.body.title, req.body.sendId, req.body.description
+  );
+  const queryText = `UPDATE movies SET "description" = '${req.body.description}', "title" = '${req.body.title}' WHERE id='${req.body.sendId}';`;
+  pool.query(queryText)
     .then(() => {
       res.sendStatus(200);
     })
     .catch(err => {
-      console.log("Error changing input category", err);
+      console.log("Error changing description", err);
       res.sendStatus(500);
     });
 });

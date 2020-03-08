@@ -16,8 +16,8 @@ import Axios from "axios";
 function* rootSaga() {
     //Get movies to display
     yield takeEvery('FETCH_MOVIES', getMovies);
-    //Display movie genres
-    yield takeEvery('DISPLAY_GENRES', displayGenres);
+    // //Display movie genres
+    // yield takeEvery('DISPLAY_GENRES', displayGenres);
     //Edit a movie
      yield takeEvery('EDIT_MOVIE', editMovie);
 
@@ -35,8 +35,8 @@ function* getMovies() {
 function* editMovie(edit) {
   console.log("Hello from edit movies in index:", edit.payload);
   try {
-    yield Axios.put(`'/edit/'${edit.payload.sendId}`, edit.payload);
-    yield put({ type: "GET_MOVIES" });
+    yield Axios.put(`/edit/${edit.payload.sendId}`, edit.payload);
+    yield put({ type: "FETCH_MOVIES" });
   } catch (error) {
     console.log(error);
   }
