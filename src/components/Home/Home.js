@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../App/App.css";
 import { connect } from "react-redux";
-// import { HashRouter as Router, Link } from "react-router-dom";
+
 
 class Home extends Component {
   componentDidMount = () => {
@@ -29,6 +29,7 @@ class Home extends Component {
     // Display movies on the dom by mapping through  movies reducer from Index
     return (
       <div className="home">
+      
         <ul>
           {this.props.reduxState.movies.map(flick => (
             <li key={flick.id}>
@@ -43,6 +44,7 @@ class Home extends Component {
             </li>
           ))}
         </ul>
+
       </div>
     );
   }

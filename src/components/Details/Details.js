@@ -3,15 +3,37 @@ import {connect} from 'react-redux';
 
 
 class Details extends Component {
+
+   backToHome=()=>{
+      this.props.history.push('/')
+    }
+
+    editMovie=(flick) => {
+      this.props.history.push({
+        pathname: '/edit',
+        state: {
+          id: flick.id,
+          title: flick.title,
+          poster: flick.poster,
+          description: flick.description
+        }
+      });
+    }
   render() {
     console.log("in details", this.props.location.state);
     return (
-      <div className="details">
-        <h1 className="site-title">DETAILS</h1>
+      <div>
+        {this.props.reduxState.movies && (
+          <div className="details">
+            <h1 className="site-title">Movie Detail</h1>
+            <h1>{this.props.location.state.title}</h1>
+            <img alt={this.props.location.state.poster} src={this.props.location.state.poster}></img>
+            <p>{this.props.location.state.description}</p>
 
-        <h1>{this.props.location.state.title}</h1>
-        {/* <img src={this.props.location.state.poster}></img> */}
-        <p>{this.props.location.state.description}</p>
+            <button onClick={this.backToHome}>Back to Home</button>
+            <button onClick={() => this.editMovie(this.props.location.state)}>Edit</button>
+          </div>
+        )}
       </div>
     );
   }

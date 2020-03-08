@@ -15,14 +15,32 @@ import Axios from "axios";
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', getMovies);
+    yield takeEvery('SET_GENRES', getGenresToDisplay);
+    yield takeEvery('CHANGE_FLICK', editMovies);
 
 }
 
-//Create generator function axios get request
+//Create generator functions
 function* getMovies() {
   const showMovie = yield Axios.get('/display');
   console.log("this saga came from display/GET bringing: ", showMovie.data);
-  yield put({ type: "SET_MOVIES", payload: showMovie.data });
+  yield put({ type: 'SET_MOVIES', payload: showMovie.data });
+}
+
+function* getGenresToDisplay() {
+  const genreList = yield Axios.get("/genre");
+  console.log("this saga came from genre/GET bringing: ", genreList.data);
+  yield put({ type: 'SET_GENRES', payload: genreList.data });
+}
+
+function* editMovies(edit) {
+  console.log("in saga PUT with: ", edit.payload.sendId);
+  try {
+    yield Axios.put(`/display/${edit.payload.sendId}`, edit.payload);
+    yield put({ type: 'CHANGE_FLICK' });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Create sagaMiddleware
