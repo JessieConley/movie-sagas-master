@@ -40,8 +40,9 @@ class Edit extends Component {
 }
 
 
+
   render() {
-   
+   console.log("in details", this.state.movieEdits);
     return (
       <div className="details">
         <h1 className="site-title">Edit</h1>
@@ -57,6 +58,9 @@ class Edit extends Component {
     )
   }
 }
+
+
+
 
 const putReduxStateOnProps = reduxState => ({
   reduxState

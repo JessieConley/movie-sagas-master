@@ -14,6 +14,7 @@ class Home extends Component {
     this.props.dispatch({ type: "FETCH_MOVIES" });
   };
 
+  
 
 //Function to advance user to Details page on click
   onClick = (event, flick) => {

@@ -17,42 +17,38 @@ function* rootSaga() {
     //Get movies to display
     yield takeEvery('FETCH_MOVIES', getMovies);
     //Display movie genres
-    yield takeEvery('SET_GENRES', displayGenres);
+    yield takeEvery('DISPLAY_GENRES', displayGenres);
     //Edit a movie
-    yield takeEvery('CHANGE_MOVIE', updateMovie);
+     yield takeEvery('EDIT_MOVIE', editMovie);
 
 }
 
-//Create generator functions
+//Create generator functions below
+
+//Get movies to display
 function* getMovies() {
   const showMovie = yield Axios.get('/display');
   console.log("this saga came from display/GET bringing: ", showMovie.data);
   yield put({ type: 'SET_MOVIES', payload: showMovie.data });
 }
 
-function* displayGenres() {
-  const genreList = yield Axios.get("/genre");
-  console.log("this saga came from genre/GET bringing: ", genreList.data);
-  yield put({ type: 'SET_GENRES', payload: genreList.data });
-}
-
-function* editMovie(action) {
+function* editMovie(edit) {
+  console.log("Hello from edit movies in index:", edit.payload);
   try {
-    const response = yield Axios.get(`/display/${action.payload}`);
-    yield put({ type: "CHANGE_MOVIE", payload: response.data });
+    yield Axios.put(`'/edit/'${edit.payload.sendId}`, edit.payload);
+    yield put({ type: "GET_MOVIES" });
   } catch (error) {
-    console.log("error getting this change movie details", error);
+    console.log(error);
   }
 }
 
-//Generator function POST request to server to update title and description in DB
-function* updateMovie(action) {
-  try {
-    yield Axios.post('/movies', action.payload);
-  } catch (error) {
-    console.log("error updating movie information");
-  }
+// //Display movie genres
+function* displayGenres(){
+    const genres = yield Axios.get('/edit');
+    console.log('show genres saga from index.js', genres.data);
+    yield put ({type: 'SET_GENRES', payload: genres.data})
 }
+
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 

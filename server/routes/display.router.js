@@ -3,7 +3,7 @@ const pool = require("../modules/pool");
 
 const router = express.Router();
 
-// return all favorite images
+// return all movies
 router.get('/', (req, res) => {
   console.log("in server /display/GET");
   const queryText = `SELECT * FROM movies ORDER BY title ASC`;
@@ -13,10 +13,12 @@ router.get('/', (req, res) => {
       res.send(result.rows);
     })
     .catch(error => {
-      console.log(`Error on query ${error}`);
+      console.log('Error getting query', error);
       res.sendStatus(500);
     });
 });
+
+
 
 module.exports = router;
 
