@@ -69,6 +69,12 @@ class Edit extends Component {
         <h2>Edit Movie Details</h2>
         <h1>{this.props.location.state.title}</h1>
         <p>{this.props.location.state.description}</p>
+        <input
+          placeholder="Change Title"
+          onChange={event => this.handleChangeForTitle("title", event)}
+        ></input>
+        <br></br>
+        <br></br>
         <form>
           <textarea
             rows="10"
@@ -79,10 +85,9 @@ class Edit extends Component {
             }
           ></textarea>
         </form>
-        <input
-          placeholder="Change Title"
-          onChange={event => this.handleChangeForTitle("title", event)}
-        ></input>
+        <br></br>
+
+        <br></br>
         <button onClick={this.back}>Cancel</button>
         <button onClick={this.saveOnChange}>Save</button>
       </div>
