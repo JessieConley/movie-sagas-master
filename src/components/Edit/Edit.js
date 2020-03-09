@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Edit extends Component {
+//Set initial state
   state = {
     movieEdits: {
       movieTitle: this.props.location.state.title,
@@ -10,6 +11,7 @@ class Edit extends Component {
     }
   };
 
+//Capture movie description change on input and set state to input
   handleChangeForTitle = (movieTitle, event) => {
     this.setState({
       movieEdits: {
@@ -20,6 +22,7 @@ class Edit extends Component {
     });
   };
 
+  //Capture movie description change on input and set state to input
   handleChangeForDescription = (movieDescription, event) => {
     this.setState({
       movieEdits: {
@@ -30,21 +33,23 @@ class Edit extends Component {
     });
   };
 
-    saveOnChange = event => {
-      event.preventDefault();
-      this.props.dispatch({
-        type: "EDIT_MOVIE",
-        payload: this.state.movieEdits
-      });
-      this.setState({
-        movieEdits: {
-          movieDescription: "",
-          movieTitle: ""
-        }
-      });
-      this.props.history.push("/");
-    };
+  //Save edit changes on click and dispatch to redux
+  saveOnChange = event => {
+    event.preventDefault();
+    this.props.dispatch({
+      type: "EDIT_MOVIE",
+      payload: this.state.movieEdits
+    });
+    this.setState({
+      movieEdits: {
+        movieDescription: "",
+        movieTitle: ""
+      }
+    });
+    this.props.history.push("/");
+  };
 
+  //Take user back to homepage on click
   back = () => {
     console.log("go back to details page from edit");
     this.props.history.push({
@@ -69,7 +74,6 @@ class Edit extends Component {
             rows="10"
             cols="50"
             placeholder="Update Description"
-           
             onChange={event =>
               this.handleChangeForDescription("description", event)
             }

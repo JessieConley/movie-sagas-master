@@ -16,14 +16,12 @@ import Axios from "axios";
 function* rootSaga() {
     //Get movies to display
     yield takeEvery('FETCH_MOVIES', getMovies);
-    // //Display movie genres
-    // yield takeEvery('DISPLAY_GENRES', displayGenres);
     //Edit a movie
      yield takeEvery('EDIT_MOVIE', editMovie);
 
 }
 
-//Create generator functions below
+//Create generator functions below:
 
 //Get movies to display
 function* getMovies() {
@@ -32,6 +30,7 @@ function* getMovies() {
   yield put({ type: 'SET_MOVIES', payload: showMovie.data });
 }
 
+//Update movie titles and descriptions
 function* editMovie(edit) {
   console.log("Hello from edit movies in index:", edit.payload);
   try {

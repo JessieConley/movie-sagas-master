@@ -5,11 +5,12 @@ import "./details.css";
 
 
 class Details extends Component {
+  //Take user back to homepage on click
   backToHome = () => {
-    //Take user back to homepage on click
     this.props.history.push("/");
   };
 
+  //Advance user to Edit page to edit movie on button click
   editMovie = event => {
     console.log("in editMovie");
     this.props.history.push({

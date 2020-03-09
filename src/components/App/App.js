@@ -10,6 +10,7 @@ import Edit from "../Edit/Edit";
 
 class App extends Component {
   // Renders the entire app on the DOM
+  //Router set up
   render() {
     return (
       <div className="App">
