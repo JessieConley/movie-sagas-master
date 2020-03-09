@@ -9,6 +9,8 @@ router.get('/', (req, res) => {
   const queryText = `SELECT * FROM "movies" 
   JOIN "movies_genres" ON "movies"."id" = "movies_genres"."movies_id" 
   JOIN "genres" ON "genres"."id" = "movies_genres"."genres_id" ORDER BY "movies"."id";`;
+
+  //I know this query will get one movie to display at a time, but I lose my genres
   // const queryText = `SELECT * FROM "movies"`;
   pool.query(queryText)
     .then(result => {

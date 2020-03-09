@@ -44,7 +44,8 @@ function* editMovie(edit) {
   console.log("Hello from edit movies in index:", edit.payload);
   try {
     yield Axios.put(`/edit/${edit.payload.sendId}`, edit.payload);
-    yield put({ type: "FETCH_MOVIES" });
+    yield put({ type: "FETCH_MOVIES",
+    payload: edit.payload });
   } catch (error) {
     console.log(error);
   }
