@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import "./details.css";
 
 
 
@@ -29,19 +30,20 @@ class Details extends Component {
       <div>
         {this.props.reduxState.movies && (
           <div className="details">
-            <h1 className="movieDetail">Movie Details</h1>
+            <h1 className="movieDetail">Movie Details:</h1>
             <h1>{this.props.location.state.title}</h1>
             <div className="movieDisplay">
               <img alt="Poster" src={this.props.location.state.poster}></img>
             </div>
             <p>{this.props.location.state.description}</p>
+            <h3>Genres:</h3>
             <p>{this.props.location.state.genre}</p>
-            <h3>Genres</h3>
 
             <button onClick={this.backToHome}>Back to Home</button>
             <button onClick={() => this.editMovie(this.props.location.state)}>
-              Edit
+              Edit Movie Details
             </button>
+            <br></br>
           </div>
         )}
       </div>

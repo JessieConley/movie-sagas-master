@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../App/App.css";
 import { connect } from "react-redux";
+import "./home.css";
 
 
 
@@ -35,22 +36,25 @@ class Home extends Component {
   render() {
     // Display movies on the dom by mapping through each movie item from redux store
     return (
-      <div className="home">
+      <div className="homePage">
+        <h2>Click on the movie poster below for more details.</h2>
         {this.props.reduxState.movies && (
-          <ul>
+          <div className="movieDisplay">
             {this.props.reduxState.movies.map(flick => (
-              <li key={flick.id}>
+              <div className="poster" key={flick.id}>
                 <img
                   src={flick.poster}
                   alt={flick.title}
                   onClick={() => this.onClick(flick)}
                 ></img>
+
                 <br />
-                {flick.title} <br />
-                {flick.description}
-              </li>
+                <div className="title">{flick.title}</div>
+                <br />
+                <div className="description">{flick.description}</div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     );

@@ -61,7 +61,7 @@ class Edit extends Component {
   render() {
     return (
       <div className="Edit">
-        <p>Movie Details</p>
+        <h2>Edit Movie Details</h2>
         <h1>{this.props.location.state.title}</h1>
         <p>{this.props.location.state.description}</p>
         <form>

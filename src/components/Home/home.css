@@ -1,0 +1,27 @@
+.movieDisplay{
+    display: inline-grid;
+    grid-template-columns: 300px, 300px;
+    grid-column-gap: 10px;
+    grid-row-gap: 30px;
+    align-content: center;
+    background-color: lightgray;
+    width: fit-content;
+    height:fit-content;
+    padding: 20px;
+}
+
+img {
+  padding: 20px;
+}
+
+.title{
+    font-weight: bold;
+    font-size: larger;
+    text-decoration: underline;
+}
+
+.description{
+    padding-left: 40px;
+    padding-right: 40px;
+    
+}
