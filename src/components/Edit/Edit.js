@@ -2,43 +2,37 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Edit extends Component {
-//Set initial state
+  //Set initial state
   state = {
     movieEdits: {
-      movieTitle: this.props.location.state.title,
-      movieDescription: this.props.location.state.description,
-      sendId: ""
+      movieTitle: "",
+      movieDescription: "",
     }
   };
-
-//Capture movie description change on input and set state to input
-  handleChangeForTitle = (movieTitle, event) => {
+  
+  //Capture movie title and description change on input and set state to input
+  handleChange = (fieldName, event) => {
+     let updatedMovieEdits = {
+      ...this.state.movieEdits
+    };
+    console.log(this.state.movieEdits);
+    if (fieldName === "description") {
+      updatedMovieEdits.movieDescription = event.target.value;
+    } else if (fieldName === "title") {
+      updatedMovieEdits.movieTitle = event.target.value;
+    }
     this.setState({
-      movieEdits: {
-        movieDescription: this.props.location.state.description,
-        sendId: this.props.location.state.id,
-        movieTitle: event.target.value
-      }
-    });
-  };
-
-  //Capture movie description change on input and set state to input
-  handleChangeForDescription = (movieDescription, event) => {
-    this.setState({
-      movieEdits: {
-        movieDescription: event.target.value,
-        sendId: this.props.location.state.id,
-        movieTitle: this.props.location.state.title
-      }
+      movieEdits: updatedMovieEdits
     });
   };
 
   //Save edit changes on click and dispatch to redux
   saveOnChange = event => {
     event.preventDefault();
+    console.log("in saveOnChange", this.state.movieEdits);
     this.props.dispatch({
       type: "EDIT_MOVIE",
-      payload: this.state.movieEdits
+      payload: {...this.state.movieEdits, sendId:this.props.location.state.id}
     });
     this.setState({
       movieEdits: {
@@ -65,31 +59,34 @@ class Edit extends Component {
   };
   render() {
     return (
-      <div className="Edit">
-        <h2>Edit Movie Details</h2>
-        <h1>{this.props.location.state.title}</h1>
-        <p>{this.props.location.state.description}</p>
-        <input
-          placeholder="Change Title"
-          onChange={event => this.handleChangeForTitle("title", event)}
-        ></input>
-        <br></br>
-        <br></br>
-        <form>
-          <textarea
-            rows="10"
-            cols="50"
-            placeholder="Update Description"
-            onChange={event =>
-              this.handleChangeForDescription("description", event)
-            }
-          ></textarea>
-        </form>
-        <br></br>
+      <div>
+        {this.props.location.state && (
+          <div className="Edit">
+            <h2>Edit Movie Details</h2>
+            <h1>{this.props.location.state.title}</h1>
+            <p>{this.props.location.state.description}</p>
 
-        <br></br>
-        <button onClick={this.back}>Cancel</button>
-        <button onClick={this.saveOnChange}>Save</button>
+            <input
+              placeholder="Change Title"
+              onChange={event => this.handleChange("title", event)}
+            ></input>
+            <br></br>
+            <br></br>
+            <form>
+              <textarea
+                rows="10"
+                cols="50"
+                placeholder="Update Description"
+                onChange={event => this.handleChange("description", event)}
+              ></textarea>
+            </form>
+            <br></br>
+
+            <br></br>
+            <button onClick={this.back}>Cancel</button>
+            <button onClick={this.saveOnChange}>Save</button>
+          </div>
+        )}
       </div>
     );
   }

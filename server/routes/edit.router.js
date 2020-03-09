@@ -16,13 +16,11 @@ router.get('/', (req, res) => {
       });
 });
 
-//update movie title and description upon edit
+//update movie title and description in DB if edited
 router.put("/:id", (req, res) => {
-
-  console.log(
-    "in router put with:",req.body.title, req.body.sendId, req.body.description
-  );
-  const queryText = `UPDATE "movies" SET "description" = '${req.body.description}', "title" = '${req.body.title}' WHERE id='${req.body.sendId}';`;
+  console.log('in edit router',req.body);
+console.log("in router put with:",req.body.movieTitle, req.body.sendId, req.body.movieDescription);
+  const queryText = `UPDATE "movies" SET "description" = '${req.body.movieDescription}', "title" = '${req.body.movieTitle}' WHERE id='${req.body.sendId}';`;
   pool.query(queryText)
     .then(() => {
       res.sendStatus(200);

@@ -29,7 +29,7 @@ class Details extends Component {
     console.log("in details", this.props.location.state);
     return (
       <div>
-        {this.props.reduxState.movies && (
+        {this.props.location.state && (
           <div className="details">
             <h1 className="movieDetail">Movie Details:</h1>
             <h1>{this.props.location.state.title}</h1>
