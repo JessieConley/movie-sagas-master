@@ -18,6 +18,8 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', getMovies);
     //Edit a movie
      yield takeEvery('EDIT_MOVIE', editMovie);
+    //  //Edit a movie
+    //  yield takeEvery('SET_GENRES', getGenres);
 
 }
 
@@ -30,6 +32,13 @@ function* getMovies() {
   yield put({ type: 'SET_MOVIES', payload: showMovie.data });
 }
 
+// //Get movie genres
+// function* getGenres(id) {
+//   const showGenre = yield Axios.get(`/display/${id}/genres`);
+//   console.log("this saga came from display/GET bringing: ", showGenre.data);
+//   yield put({ type: "SET_MOVIES", payload: showGenre.data });
+// }
+
 //Update movie titles and descriptions
 function* editMovie(edit) {
   console.log("Hello from edit movies in index:", edit.payload);
@@ -41,12 +50,6 @@ function* editMovie(edit) {
   }
 }
 
-// //Display movie genres
-// function* displayGenres(){
-//     const genres = yield Axios.get('/edit');
-//     console.log('show genres saga from index.js', genres.data);
-//     yield put ({type: 'SET_GENRES', payload: genres.data})
-// }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
