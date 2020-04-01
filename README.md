@@ -7,13 +7,13 @@ Movie Sagas Master
 The Movie Sagas application is a movie application that displays existing movies within an SQL database and gives you the option to select a movie and edit the title and description. Upon submit of the title and description edit, the database will be updated with the new movie title and description.  
 
 ## Approach
-The approach I took with this application was starting with the databse set up in SQL. After the DB was set up, I set up my server side routes. Following back-end set up, I updated my INdex.js to include my generator functions and set up my page components.
+The approach I took with this application was starting with the databse set up in SQL. After the DB was set up, I set up my server side routes. Following back-end set up, I updated my Index.js to include my generator functions and set up my page components.
 
 Once I had the basic functionality of my application working and I was able to update the dataebase when movie edits were made. I applied some css styling to each of the pages as well. 
 
 ## Prerequisites
 
-- Nodemon
+- Node
 - React 
 - Redux
 - React-Router-Dom
@@ -26,7 +26,7 @@ Once I had the basic functionality of my application working and I was able to u
 
 
 ## Installation
-1. If you don't have Nodemon installed, install it globally within your terming using the command "npm install nodemon --global
+1. If you don't have Node installed, install it globally within your terming using the command "npm install nodemon --global
 2. Run "npm install" in terminal
 3. Run "npm install react-router-dom to add react-router to your project, then set up your import within your application files
 4. Run "npm install redux react-redux to connect react and redux together, then set up your import within your application files
